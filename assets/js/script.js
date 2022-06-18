@@ -7,10 +7,11 @@ const currentTemp = document.getElementById("temp")
 const currentWind = document.getElementById("wind")
 const currentHumidity = document.getElementById("humidity")
 const currentUVIndex = document.getElementById("uv-index")
+const fiveDayForecast = document.querySelector(".five-day")
 
 const displayCurrentWeather = function(weatherData) {
-    icon = document.createElement('img')
-    iconId = weatherData.current.weather[0].icon
+    let icon = document.createElement('img')
+    let iconId = weatherData.current.weather[0].icon
     icon.setAttribute("src", `http://openweathermap.org/img/w/${iconId}.png`)
     currentCity.appendChild(icon)
     currentTemp.innerText = weatherData.current.temp
