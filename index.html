@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+<title>Weather Dashboard</title>
+</head>
+<body>
+
+<header>
+    <h1>Weather Dashboard</h1>
+</header>
+<main>
+    <div class="search">
+        <h2>Search for a City:</h2>
+        <input type="text" placeholder="City Name">
+        <button type="button" class="search-btn">Search</button>
+        <div class="previous-cities "></div>
+    </div>
+
+    <div class="weather">
+        <section class="current">
+            <h2 class="city-name">Current City</h2>
+                <p>Temp: <span id="temp"></span> &#8457;</p>
+                <p>Wind: <span id="wind"></span> MPH</p>
+                <p>Humidity:  <span id="humidity"></span> %</p>
+                <p>UV Index: <span id="uv-index"></span></p>
+        </section>
+        <section class="five-day">
+            <h2>5-Day Forecast</h2>
+
+        </section>
+    </div>
+</main>
+<script src="./assets/js/script.js"></script>
+</body>
+</html> 
