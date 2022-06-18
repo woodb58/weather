@@ -107,7 +107,7 @@ const loadCities = function() {
         generateSearchBtn(loadedCities[i])
     }
 }
-// save new cities
+// save cities
 const saveCity = function(city) {
     let savedCities = localStorage.getItem("Cities")
     if (!savedCities){
@@ -118,7 +118,7 @@ const saveCity = function(city) {
     savedCities.push(city)
     localStorage.setItem("Cities", JSON.stringify(savedCities))
 }
-
+// generate searched city buttons
 const generateSearchBtn = function(city) {
     let newButton = document.createElement("button")
     newButton.setAttribute("type", "button")
@@ -127,7 +127,15 @@ const generateSearchBtn = function(city) {
     previousCities.appendChild(newButton)
     newButton.addEventListener("click", cityClickHandler)
 }
-  
+// error handler
+var handleError = function(response) {
+    if (response.ok) {
+        return response.json()
+    }
+    throw new Error('Failed to retrieve information: ' + response.status)
+ }
+
+// weather for city searched
 const getLocationData = function(city) {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`)
     .then(function(response) {
@@ -151,7 +159,7 @@ const getLocationData = function(city) {
         errorEl.innerText = "Network error"
 })
 }
-
+// fetch data for city based on lat & Lon
 const getCurrentWeather = function(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
     .then(function(response) {
@@ -163,7 +171,7 @@ const getCurrentWeather = function(lat, lon) {
         displayFiveDayWeather(weatherData)
     })
 }
-
+// search button handler
 var getCity = function(event) {
     event.preventDefault()
     errorEl.style.display = "none"
