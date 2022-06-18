@@ -1,39 +1,47 @@
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/styles.css">
-<title>Weather Dashboard</title>
-</head>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+    <main>
+      <form class="search">
+        <h2>Search for a City</h2>
+        <div id="error"></div>
+        <input id="city-search" type="text" placeholder="City Name" />
+        <button id="search-btn" type="submit" class="search-btn">Search</button>
+        <div id="previous-cities" class="previous-cities"></div>
+      </form>
 
-<header>
-    <h1>Weather Dashboard</h1>
-</header>
-<main>
-    <div class="search">
-        <h2>Search for a City:</h2>
-        <input type="text" placeholder="City Name">
-        <button type="button" class="search-btn">Search</button>
-        <div class="previous-cities "></div>
-    </div>
-
-    <div class="weather">
+      <div class="weather">
         <section class="current">
-            <h2 class="city-name">Current City</h2>
-                <p>Temp: <span id="temp"></span> &#8457;</p>
-                <p>Wind: <span id="wind"></span> MPH</p>
-                <p>Humidity:  <span id="humidity"></span> %</p>
-                <p>UV Index: <span id="uv-index"></span></p>
+          <h2 id="city-name" class="city-name">Current City</h2>
+          <p>Temp: <span id="temp"></span>&#8457;</p>
+          <p>Wind: <span id="wind"></span>mph</p>
+          <p>Humidity: <span id="humidity"></span>%</p>
+          <p>UV Index: <span id="uv-index"></span></p>
         </section>
         <section class="five-day">
-            <h2>5-Day Forecast</h2>
-
+          <h2>5-Day Forecast</h2>
+          <div id="five-day"></div>
         </section>
-    </div>
-</main>
-<script src="./assets/js/script.js"></script>
-</body>
-</html> 
+      </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.0/dayjs.min.js" integrity="sha512-KTFpdbCb05CY4l242bLjyaPhoL9vAy4erP1Wkn7Rji0AG6jx6zzGtKkdHc7jUOYOVSmbMbTg728u260CA/Qugg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+  >
+</html>
