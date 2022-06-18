@@ -1,6 +1,5 @@
 :root {
     font-size: 10px;
-   
 }
 
 *{
@@ -9,20 +8,15 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-body {
-    background-color: rgb(67, 189, 241);
-}
-
 header {
-    background-color: blue;
-    background-image: linear-gradient(darkblue, rgb(36, 134, 167));
+    background-image: linear-gradient(to left, darkblue, rgb(36, 84, 167));
     color: white;
     width: 100%;
     text-align: center;
-    font-size: x-large;
+    font-size: 4rem;
     padding: 1.5rem 0;
     text-shadow: .2rem .2rem .4rem black;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 main {
@@ -50,19 +44,31 @@ main {
 }
 
 .search-btn {
-    background-color: blue;
+    background-color: rgb(0, 162, 255);
     color: white;
 }
 
 .search button {
     border-radius: var(--border-radius);
     height: 3.5rem;
-    font-size: large;
+    font-size: 2rem;
     font-weight: bold
 }
 
 .previous-cities {
-    border-top: .5rem solid grey;
+    border-top: .2rem solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding-top: 1rem;
+}
+
+.previous-cities button {
+    border-radius: .5rem;
+    height: 3rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: lightgrey;
 }
 
 .weather {
@@ -86,29 +92,45 @@ main {
 }
 
 #uv-index {
-    background-color: green;
-    color: black;
+    color:white;
     font-weight: bold;
-    border-radius: var(--border-radius);
+    border-radius: .5rem;
     padding: .3rem 1rem;
     opacity: 0;
 }
 
 .five-day h2 {
+    font-size: 3rem;
     margin-bottom: 1rem;
 }
 
 #five-day {
     display: flex;
     flex-wrap: wrap;
-    gap: .5rem;
+    gap: 1.5rem;
     width: 100%;
     justify-content: space-between;
 }
 
 .card {
-    background-color: darkblue;
+    background-color: #33475A;
     color: white;
-    padding: .5rem .3rem;
-    width: 150px;
+    padding: 1rem 1rem;
+    border-radius: .5rem;
+    line-height: 1.8;
+}
+
+.card h3 {
+    font-size: 3rem;
+}
+
+.card p {
+    font-size: 3rem;
+}
+
+#error {
+    display: none;
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 0 .2rem .2rem black;
 }
