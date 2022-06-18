@@ -8,9 +8,12 @@ const currentWind = document.getElementById("wind")
 const currentHumidity = document.getElementById("humidity")
 const currentUVIndex = document.getElementById("uv-index")
 const fiveDayForecast = document.querySelector(".five-day")
+const errorEl = document.getElementById("error")
 
+// display current weather
 const displayCurrentWeather = function(weatherData) {
     let icon = document.createElement('img')
+
     let iconId = weatherData.current.weather[0].icon
     icon.setAttribute("src", `http://openweathermap.org/img/w/${iconId}.png`)
     currentCity.appendChild(icon)
@@ -33,15 +36,16 @@ const displayCurrentWeather = function(weatherData) {
     }
     currentUVIndex.innerText = UVIndex
 }
-
+// 5 day forecast
 const displayFiveDayWeather = function(weatherData) {
-    //clear data
+
     const oldFiveDayContainer = document.getElementById("five-day")
     oldFiveDayContainer.remove()
-    //create new container 
+
     const newFiveDayContainer = document.createElement("div")
     newFiveDayContainer.setAttribute("id", "five-day")
     fiveDayForecast.appendChild(newFiveDayContainer)
+
     const fiveDayArr = weatherData.daily
     console.log(fiveDayArr)
     for (let i = 1; i < 6; i++) {
@@ -70,6 +74,7 @@ const displayFiveDayWeather = function(weatherData) {
     }
 }
 
+// checks to see if city is saved and does not generate button if it is
 const checkSearchOrigin = function (city) {
     let loadedCities = localStorage.getItem("Cities")
     if (!loadedCities) {
@@ -91,7 +96,7 @@ const cityClickHandler = function(event) {
     let cityName = event.target.getAttribute("data-city")
     getLocationData(cityName)
 }
-
+// loads saved cities from local storage
 const loadCities = function() {
     let loadedCities = localStorage.getItem("Cities")
     if (!loadedCities) {
@@ -102,7 +107,7 @@ const loadCities = function() {
         generateSearchBtn(loadedCities[i])
     }
 }
-
+// save new cities
 const saveCity = function(city) {
     let savedCities = localStorage.getItem("Cities")
     if (!savedCities){
@@ -136,8 +141,14 @@ const getLocationData = function(city) {
             currentCity.innerText = locationData[0].name + " (" + dayjs().format('MM/DD/YYYY') + ")"
         }
         else {
-            alert("Not a valid city name")
+            errorEl.style.display = "block"
+            errorEl.innerText = "Not a valid city name"
         }
+    })
+    .catch(function(err) {
+        console.log(err)
+        errorEl.style.display = "block"
+        errorEl.innerText = "Network error"
 })
 }
 
@@ -153,11 +164,16 @@ const getCurrentWeather = function(lat, lon) {
     })
 }
 
-const getCity = function() {
-    const newCity = citySearch.value
+var getCity = function(event) {
+    event.preventDefault()
+    errorEl.style.display = "none"
+    var newCity = citySearch.value
+    if (!newCity) {
+        errorEl.style.display = "block"
+        errorEl.innerText = "Please enter a city to search"
+        return
+    }
     getLocationData(newCity)
-    generateSearchBtn(newCity)
-    saveCity(newCity)
     citySearch.value = ""
 }
 
