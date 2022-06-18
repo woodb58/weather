@@ -17,7 +17,7 @@ const displayCurrentWeather = function(weatherData) {
     currentTemp.innerText = weatherData.current.temp
     currentWind.innerText = weatherData.current.wind_speed
     currentHumidity.innerText = weatherData.current.humidity
-    UVIndex = weatherData.current.uvi
+    let UVIndex = weatherData.current.uvi
     currentUVIndex.style.opacity = 1
     if (UVIndex < 3) {
         currentUVIndex.style.backgroundColor = "green"
@@ -34,18 +34,71 @@ const displayCurrentWeather = function(weatherData) {
     currentUVIndex.innerText = UVIndex
 }
 
+const displayFiveDayWeather = function(weatherData) {
+    //clear data
+    const oldFiveDayContainer = document.getElementById("five-day")
+    oldFiveDayContainer.remove()
+    //create new container 
+    const newFiveDayContainer = document.createElement("div")
+    newFiveDayContainer.setAttribute("id", "five-day")
+    fiveDayForecast.appendChild(newFiveDayContainer)
+    const fiveDayArr = weatherData.daily
+    console.log(fiveDayArr)
+    for (let i = 1; i < 6; i++) {
+         let weatherCard = document.createElement("div")
+         weatherCard.classList.add("card")
+         let date = document.createElement("h3")
+         date.innerText = dayjs().add(i, "day").format('MM/DD/YYYY')
+         weatherCard.appendChild(date)
+         let icon = document.createElement('img')
+         let iconId = fiveDayArr[i].weather[0].icon
+         icon.setAttribute("src", `http://openweathermap.org/img/w/${iconId}.png`)
+         weatherCard.appendChild(icon)
+         let tempEl = document.createElement('p')
+         let temp = fiveDayArr[i].temp.day
+         tempEl.innerHTML = `Temp: ${temp}&#8457;`
+         weatherCard.appendChild(tempEl)
+         let windEl = document.createElement('p')
+         let wind = fiveDayArr[i].wind_speed
+         windEl.innerHTML = `Wind: ${wind}mph`
+         weatherCard.appendChild(windEl)
+         let humidityEl = document.createElement('p')
+         let humidity = fiveDayArr[i].humidity
+         humidityEl.innerHTML = `Humidity: ${humidity}%`
+         weatherCard.appendChild(humidityEl)
+         newFiveDayContainer.appendChild(weatherCard)
+    }
+}
+
+const checkSearchOrigin = function (city) {
+    let loadedCities = localStorage.getItem("Cities")
+    if (!loadedCities) {
+        generateSearchBtn(city)
+        saveCity(city)
+        return
+    }
+    loadedCities = JSON.parse(loadedCities)
+    for (let i = 0; i < loadedCities.length; i++) {
+        if (city === loadedCities[i]) {
+            return
+        }
+    }
+    generateSearchBtn(city)
+    saveCity(city)
+}
+
 const cityClickHandler = function(event) {
     let cityName = event.target.getAttribute("data-city")
     getLocationData(cityName)
 }
 
 const loadCities = function() {
-    loadedCities = localStorage.getItem("Cities")
+    let loadedCities = localStorage.getItem("Cities")
     if (!loadedCities) {
         return;
     }
     loadedCities = JSON.parse(loadedCities)
-    for (var i = 0; i < loadedCities.length; i++) {
+    for (let i = 0; i < loadedCities.length; i++) {
         generateSearchBtn(loadedCities[i])
     }
 }
@@ -62,7 +115,7 @@ const saveCity = function(city) {
 }
 
 const generateSearchBtn = function(city) {
-    newButton = document.createElement("button")
+    let newButton = document.createElement("button")
     newButton.setAttribute("type", "button")
     newButton.setAttribute("data-city", city)
     newButton.innerText = city
@@ -77,8 +130,14 @@ const getLocationData = function(city) {
     })
     .then(function(locationData) {
         console.log(locationData)
-        getCurrentWeather(locationData[0].lat, locationData[0].lon)
-        currentCity.innerText = locationData[0].name + " (" + dayjs().format('MM/DD/YYYY') + ")"
+        if (locationData.length > 0) {
+            getCurrentWeather(locationData[0].lat, locationData[0].lon)
+            checkSearchOrigin(city)
+            currentCity.innerText = locationData[0].name + " (" + dayjs().format('MM/DD/YYYY') + ")"
+        }
+        else {
+            alert("Not a valid city name")
+        }
 })
 }
 
@@ -90,6 +149,7 @@ const getCurrentWeather = function(lat, lon) {
     .then(function(weatherData) {
         console.log(weatherData)
         displayCurrentWeather(weatherData)
+        displayFiveDayWeather(weatherData)
     })
 }
 

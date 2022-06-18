@@ -9,6 +9,10 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+body {
+    background-color: rgb(67, 189, 241);
+}
+
 header {
     background-color: blue;
     background-image: linear-gradient(darkblue, rgb(36, 134, 167));
@@ -83,7 +87,7 @@ main {
 
 #uv-index {
     background-color: green;
-    color: white;
+    color: black;
     font-weight: bold;
     border-radius: var(--border-radius);
     padding: .3rem 1rem;
