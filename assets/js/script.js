@@ -15,7 +15,7 @@ const displayCurrentWeather = function(weatherData) {
     let icon = document.createElement('img')
 
     let iconId = weatherData.current.weather[0].icon
-    icon.setAttribute("src", `http://openweathermap.org/img/w/${iconId}.png`)
+    icon.setAttribute("src", `https://openweathermap.org/img/w/${iconId}.png`)
     currentCity.appendChild(icon)
     currentTemp.innerText = weatherData.current.temp
     currentWind.innerText = weatherData.current.wind_speed
@@ -56,7 +56,7 @@ const displayFiveDayWeather = function(weatherData) {
          weatherCard.appendChild(date)
          let icon = document.createElement('img')
          let iconId = fiveDayArr[i].weather[0].icon
-         icon.setAttribute("src", `http://openweathermap.org/img/w/${iconId}.png`)
+         icon.setAttribute("src", `https://openweathermap.org/img/w/${iconId}.png`)
          weatherCard.appendChild(icon)
          let tempEl = document.createElement('p')
          let temp = fiveDayArr[i].temp.day
@@ -137,7 +137,7 @@ var handleError = function(response) {
 
 // weather for city searched
 const getLocationData = function(city) {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`)
     .then(function(response) {
         return response.json()
     })
